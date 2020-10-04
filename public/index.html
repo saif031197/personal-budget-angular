@@ -7,17 +7,17 @@
     <!-- This is an SEO Change-->
     <meta name="author" content="Mohammad Saif">
     <title>Personal Budget</title>
-    <link rel="stylesheet" href="/pb/reset.css">
-    <link rel="stylesheet" href="/pb/main.css">
+    <link rel="stylesheet" href="/reset.css">
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body>
     <a class="skip" href="#content">Skip to main</a>
     <!-- This is a Semantic HTML Change-->
     <nav class="menu">
         <ul>
-            <li><a href="/pb">Home</a></li>
-            <li><a href="/pb/about.html">About</a></li>
-            <li><a href="/pb/login.html">Login</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/login.html">Login</a></li>
             <!-- This is an SEO Change -->
             <!-- This is an A11y Change -->
             <li><a rel="canonical" aria-label="Google Home" href="https://google.com">Google</a></li>
@@ -67,9 +67,9 @@
        
            <!-- This is a Semantic HTML Change -->
            <section class="text-box">
-               <h1>Free</h1>
+               <h1>Chart</h1>
                <p>
-                   This app is free!!! And you are the only one holding your data!
+                   <canvas id="myChart" width="400" height="400"></canvas>
                </p>
            </section>
 
@@ -82,6 +82,44 @@
             All rights reserved &copy; Fabio Nolasco
         </footer>
     </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+    <script>
+        var dataSource = {
+            datasets: [
+                {
+                    data: [],
+                    backgroundColor: [
+                        '#ffcd56',
+                        '#ff6384',
+                        '#36a2eb',
+                        '#fd6b19'
+                        
+                    ],
+                }
+            ],
+            labels: []
+        };
+        
+        function createChart(){
+            var ctx = document.getElementById("myChart").getContext("2d");
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: dataSource
+            });
+        }
+        function getBudget() {
+            axios.get('/budget')
+            .then(function (res) {
+                console.log(res.data);
+                for (var i=0; i<res.data.myBudget.length; i++){
+                    dataSource.datasets[0].data[i] = res.data.myBudget[i].budget; 
+                    dataSource.labels[i] = res.data.myBudget[i].title;
+                }
+                createChart();
+            });
+        }
+        getBudget();
+    </script>
 </body>
 </html>
