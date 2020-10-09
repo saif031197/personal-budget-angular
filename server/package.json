@@ -9,16 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/saif031197/personal-budget.git"
+    "url": "git+https://github.com/CRDChesterDias/personal-budget.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/saif031197/personal-budget/issues"
+    "url": "https://github.com/CRDChesterDias/personal-budget/issues"
   },
-  "homepage": "https://github.com/saif031197/personal-budget#readme",
+  "homepage": "https://github.com/CRDChesterDias/personal-budget#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "chart.js": "^2.9.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "package.json": "^2.0.1"
   }
 }
