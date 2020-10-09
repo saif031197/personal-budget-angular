@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { stringify } from 'querystring';
 
 
 export interface Item{
@@ -13,6 +14,7 @@ export interface Item{
 @Injectable({
   providedIn: 'root'
 })
+
 export class DataService {
 
   constructor(private http: HttpClient) { }
@@ -28,11 +30,9 @@ getData(): Item[] {
         return object[k];
       });
     for(var i = 0; i < array[0].length; i++){
-      console.log(typeof(array[0][i].budget));
-      console.log(typeof(array[0][i].title));
       samples.push({
+      name : array[0][i].title,
       value : array[0][i].budget,
-      label : array[0][i].title,
       abs: Math.abs(array[0][i].budget)
       });
     }
